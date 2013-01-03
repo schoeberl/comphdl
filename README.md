@@ -1,4 +1,6 @@
 comphdl
 =======
 
-Compare HDLs
+Compare different hardware description languages (HDL).
+
+
