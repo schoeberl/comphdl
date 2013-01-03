@@ -1,0 +1,72 @@
+
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
+
+
+%\usepackage{pslatex} % -- times instead of computer modern
+
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{graphicx}
+%\usepackage{caption}
+%\usepackage{subcaption}
+\newcommand{\code}[1]{{\small{\textsf{#1}}}}
+\newcommand{\codefoot}[1]{{\textsf{#1}}}
+\usepackage{cite}
+\usepackage{amsmath,amsthm}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\newcommand{\todo}[1]{{\emph{TODO: #1}}}
+
+\usepackage{listings}
+%\usepackage{subfigure}
+
+\newcommand{\comment}[3]{\paragraph*{\textbf{#1}}{\color{#3}#2}}
+
+
+\newcommand{\martin}[1]{\comment{Martin}{#1}{Blue}}
+
+
+\begin{document}
+
+\title{Working title: Compare HDLs}
+
+\author{Martin}
+
+
+\maketitle \thispagestyle{empty}
+
+\begin{abstract}
+Compare different HDLs.
+\end{abstract}
+
+\section{General}
+
+Do some exploration of user base and available source code on all languages.
+
+How many \emph{background} knowledge on programming language do we need for the new HDL?
+
+\section{MyHDL}
+
+\begin{itemize}
+\item Very simple to download install
+\item Python needs to be learned, some VHDL/Verilog knowledge is still needed
+\end{itemize}
+
+Installed on Python 2.7. Does it need a 2.x Python or would it run on 3.x as well?
+
+How large is the user base on MyHDL? Any open-source projects?
+
+see \url{http://thread.gmane.org/gmane.comp.python.myhdl/2701}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+
+
+\bibliographystyle{IEEEtran}
+%\bibliographystyle{abbrv} % similar to IEEE without URLs
+% pleas add bibs into other.bib as msbib.bib is 'generated'
+\bibliography{msbib}
+
+\end{document}
+
