@@ -28,9 +28,14 @@
 
 \begin{document}
 
-\title{Working title: Compare HDLs}
+\title{Working title: Compare HDLs or\\
+Are New Hardware Description Languages Available for FPAG
+Development and Teaching Digital Design?}
 
-\author{Martin}
+\author{Martin Schoeberl\\
+Department of Applied Mathematics and Computer Science\\
+Technical University of Denmark\\
+masca@imm.dtu.dk}
 
 
 \maketitle \thispagestyle{empty}
@@ -45,7 +50,50 @@ Do some exploration of user base and available source code on all languages.
 
 How many \emph{background} knowledge on programming language do we need for the new HDL?
 
-\section{MyHDL}
+Can it be a language to teach 1st and 2nd semester EE students to learn digital
+electronics? Even without programming background? We now struggle with VHDL.
+
+\section{Introduction}
+
+Questions to be answered:
+
+\begin{itemize}
+\item Is it clear what is combinational logic and what are registers?
+\item Can FPGA block RAMs be instantiated? Can ROMs be used?
+\item Is simulation in the HDL possible?
+\item Is there a clear line between the synthsizable  and not synthsizable parts of the language?
+\item Can it be used in a first semester digital electronics course?
+\item Quality of generated code: hardware resources and maximum clock frequency
+\item Mixed language (with VHDL and/or Verilog) usage?
+\item Size of the user group and support
+\item Active development
+\end{itemize}
+
+\section{Getting Started}
+
+This is a first tour through the languages.
+
+\subsection{MyHDL}
+
+Starting with MyHDL was a pleasure. Having Python already installed, the installation
+of MyHDL was a matter of minutes. Having been exposed to Python for about one
+day before, the first examples in the MyHDL manual [ref missing] where easy as well.
+However, jumping ahead and trying to generate some real VHDL code and programming
+an FPGA with the HW version of \emph{Hello World} took some hours struggling
+with cryptic error messages. The author is used to statically typed languages and
+compile checks, where Pythons dynamic typing and interpreting execution model
+reveals program and even typing errors only at runtime needs some adaption of
+the authors programming mindset and habits.
+
+The development approach in MyHDL is to test and verify the hardware within Python first
+before generating VHDL or Verilog. Therefore, basic Python language knowledge is
+needed for MyHDL. In fact MyHDL is less a language in its own, but a Python package.
+
+
+
+
+
+
 
 \begin{itemize}
 \item Very simple to download install
@@ -58,13 +106,15 @@ How large is the user base on MyHDL? Any open-source projects?
 
 see \url{http://thread.gmane.org/gmane.comp.python.myhdl/2701}
 
+
+
 \section{Notes (from iPad/Dropbox)}
 
 MyHDL
 
 Having min and max values that cannot be implemented so in HW is strange. I would prefer just signed/unsigned with a power of 2 range.
 
-MyHDL is not a new language, but. python package. Python is the language. If a HW description is embedded in a full blown general purpose language with a lot of libraries, how easy is it to see the boundaries of what is synthesizable hardware, what is test benches, unit tests, and even generator code?
+MyHDL is not a new language, but a python package. Python is the language. If a HW description is embedded in a full blown general purpose language with a lot of libraries, how easy is it to see the boundaries of what is synthesizable hardware, what is test benches, unit tests, and even generator code?
 
 There is no indication is parameters are input or output signals.
 
