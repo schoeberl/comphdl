@@ -68,11 +68,30 @@ HDCamel
 
 \section{Introduction}
 
-Questions to be answered:
+\subsection{Assessment Criteria}
 
+
+In synchronous design the two basic building blocks are combinational
+(asynchronous) logic and flip-flop based registers. Larger on-chip
+memories are not built out of registers, but are considered another building
+block. This building blocks are also reflected in current FPGAs: lookup tables
+(LUT) are used to implement combinational functions, dedicated flip-flops
+the registers, on-chip memories support larger storage requirements,
+and dedicated hard macros (with MAC operations) support efficient
+implementation of DSP algorithms.
+
+This results in following questions:
 \begin{itemize}
 \item Is it clear what is combinational logic and what are registers?
 \item Can FPGA block RAMs be instantiated? Can ROMs be used?
+\item Can the DSP blocks be used?
+\end{itemize}
+
+\todo{Write some text around the questions as motivation for them}
+
+Further questions to be answered:
+
+\begin{itemize}
 \item Is simulation in the HDL possible?
 \item Is there a clear line between the synthsizable  and not synthsizable parts of the language?
 \item Can it be used in a first semester digital electronics course?
@@ -81,6 +100,8 @@ Questions to be answered:
 \item Size of the user group and support
 \item Active development
 \end{itemize}
+
+Missing and hard to assess: productivity, easy to maintain.
 
 \section{Getting Started}
 
@@ -102,7 +123,13 @@ The development approach in MyHDL is to test and verify the hardware within Pyth
 before generating VHDL or Verilog. Therefore, basic Python language knowledge is
 needed for MyHDL. In fact MyHDL is less a language in its own, but a Python package.
 
+\todo{Maybe this goes into a Discussion section at the end}
 
+The question is if a dynamic typed language, where a variable can change the type
+at runtime, the best base for HW synthesis is. In the resulting Verilog/VHDL code and
+in the hardware the type of a signal or a register is statically fixed. Type errors in
+Python are only detected at runtime by extensive testing. In a statically typed
+language the compiler finds all type errors at compile time.
 
 
 
@@ -119,6 +146,25 @@ How large is the user base on MyHDL? Any open-source projects?
 
 see \url{http://thread.gmane.org/gmane.comp.python.myhdl/2701}
 
+\section{Language Assessments}
+
+In this section we will assess which languages fulfill the criteria proposed in
+the introduction and answer the questions.
+
+\subsection{Is it clear what is combinational logic and what are registers?}
+
+\todo{Check Verilog}
+
+In VHDL there is no clear distinction between combinational logic, flip-flop
+registers,  and memories in the language. Registers (and memories) are
+inferred from \emph{code patterns}. Furthermore, small errors can result
+in unintended latches generated in processes that are intended to be combinational.
+
+MyHDL has no distinct types for register of memory. However, it uses annotations
+(so called decorators \todo{check the name}) to mark a function representing
+combinational logic with \code{@always\_comb} and a function where the
+output is stored in registers with \code{@always(clk.posedge)}. We consider
+this as an enhancement related to VHDL/Verilog \todo{Check Verilog}.
 
 
 \section{Notes (from iPad/Dropbox)}
