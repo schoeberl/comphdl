@@ -116,7 +116,7 @@ This is a first tour through the languages.
 
 Starting with MyHDL was a pleasure. Having Python already installed, the installation
 of MyHDL was a matter of minutes. Having been exposed to Python for about one
-day before, the first examples in the MyHDL manual [ref missing] where easy as well.
+day before, the first examples from the MyHDL manual~\cite{myhdl:2010} where easy as well.
 However, jumping ahead and trying to generate some real VHDL code and programming
 an FPGA with the HW version of \emph{Hello World} took some hours struggling
 with cryptic error messages. The author is used to statically typed languages and
@@ -166,11 +166,24 @@ inferred from \emph{code patterns}. Furthermore, small errors can result
 in unintended latches generated in processes that are intended to be combinational.
 
 MyHDL has no distinct types for register of memory. However, it uses annotations
-(so called decorators \todo{check the name}) to mark a function representing
+(so called decorators in Python) to mark a function representing
 combinational logic with \code{@always\_comb} and a function where the
 output is stored in registers with \code{@always(clk.posedge)}. We consider
 this as an enhancement related to VHDL/Verilog \todo{Check Verilog}.
 
+\subsection{Documentation and Tutorials}
+
+The MyHDL distribution 
+
+\subsection{Active Community}
+
+It is important that a new language has a active developer group that is
+able to fix errors and incorporate changes when new (FPGA) technology
+becomes available. Furthermore, an active forum for the language users
+is beneficial for getting started.
+
+MyHDL is developed and maintained by Jan Decaluwe with the help of
+Christopher Felton.  
 
 \section{Notes (from iPad/Dropbox)}
 
@@ -199,6 +212,10 @@ Shall I look into C based HDLs?
 SystemC?
 
 SystemVerilog
+
+\section{Further Notes and Reading Material}
+
+MyHDL news group archive: \url{http://blog.gmane.org/gmane.comp.python.myhdl}
 
 \section{Conclusion}
 \label{sec:conclusion}
