@@ -1,0 +1,132 @@
+
+\section{A New Language}
+
+This is a start, which shall go into it's own paper, of a new language.
+Name is needed, but the current acronym is SHDL.
+
+SHDL shall be a simple, minimalistic language to generate synthesizable
+hardware via an intermediate language, such as VHDL. SHDL shall
+be simple to learn and it shall be clear which constructs are synthesizable.
+Maybe all constructs are synthesizable and a simulation needs another
+language to implement the test bench.
+
+One suggestion is that we implement the new DSL as an embedded DSL in
+Modelyze. The important thing is, however, that this DSL is
+\emph{exclusively embedded}, meaning that it does not derive more
+functionality from the host language (Modelyze in this case) than
+necessary or wanted. For instance, our new HDL should perhaps require
+all translations to VHDL to terminate and only allow static
+typing. We may use the term \emph{fencing} for describing
+how the embedded DSL is separated from the host language.
+
+
+\subsection{Short Notes}
+
+\martin{I like the x.next notion from MyHDL for register values as it shows
+that the value will change on the next clock tick and is not yet available.
+However, MyHDL uses this for combinational signals as well, which is not
+so good.}
+
+
+\subsection{Concepts}
+We should make explicit and clear fundamental concepts
+
+\begin{itemize}
+\item Component abstraction
+\item Component instances
+\item Wiring between components
+\item Registers
+\item Logic
+\item Parameterization
+\end{itemize}
+
+
+\subsection{Simple circuits with logic only}
+
+\shdl\lstset{}
+\begin{lstlisting}[]
+comp Xor2()
+  in i1, i2 : bool
+  out o1 : bool
+  o1 = i1 xor i2
+end
+
+comp Not1()
+  in i1 : bool
+  out o1 : bool
+  o1 = !i1
+end
+
+comp SimpleCircuit()
+  in  a : bool[3] 
+  out even : bool = unit3.o1
+
+  def unit1 = Xor2()          
+  unit1.i1 = a[0] 
+     
+  def unit2 = Xor2()
+  unit2.i1 = unit1.o1
+  unit2.i1 = a[2]          
+ 
+  def unit3 = Not1()         
+  unit3.i1 = unit2.o1
+end
+\end{lstlisting}
+
+We use def to define a local name. In the above case is it used for naming component instances.
+
+\shdl\lstset{}
+\begin{lstlisting}[]
+type R1 = {
+  a:int
+  b:int
+}
+
+type R2 = {
+  a:int
+  b:int
+}
+
+type R3 = {
+  a:int
+  b:int
+}
+
+comp A()
+  out o2:R2
+  out o3:R3
+end
+
+comp B()
+  in i4:R4
+  in i3:R3
+  out o1:R1
+end
+
+comp C
+  in i1:R1
+  in i2:R2
+  out o4:R4
+end
+
+comp Circuit
+  def a = A()
+  def b = B()
+  def c = C()
+  b.i3 = a.o3
+  b.i4 = c.04
+  c.i1 = b.o1
+  c.i2 = a.o2
+end
+
+
+comp Counter
+  in clear:bool
+  reg cnt:int4 = a 
+  def a = if !clear then cnt + 1 else 0
+  out v:int4 = cnt
+end
+\end{lstlisting}
+
+
+Use term “single assignment”

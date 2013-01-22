@@ -4,6 +4,9 @@
 
 %\usepackage{pslatex} % -- times instead of computer modern
 
+\usepackage{listings}
+\usepackage{courier}
+
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -24,9 +27,21 @@
 
 
 \newcommand{\martin}[1]{\comment{Martin}{#1}{Blue}}
+\newcommand{\david}[1]{\comment{David}{#1}{Blue}}
 
 
 \begin{document}
+
+% MKL listings
+\newcommand{\shdl} {
+  \lstset{keywords={comp,end,def,in,out,if,then,else,true,false,
+      int,real,bool,string,int1,int2,int3,int4,int5,int6,int7,int8,
+      int16,int32,type}, 
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/}, morestring=[b]{"},
+    basicstyle=\ttfamily\small, showstringspaces=false,
+    keywordstyle=\bfseries, mathescape=true, }}
+
 
 \title{Working title: Compare HDLs or\\
 Are New Hardware Description Languages Available for FPAG
@@ -245,23 +260,10 @@ SystemVerilog
 
 MyHDL news group archive: \url{http://blog.gmane.org/gmane.comp.python.myhdl}
 
-\section{A New Language}
 
-This is a start, which shall go into it's own paper, of a new language.
-Name is needed, but the current acronym is SHDL.
 
-SHDL shall be a simple, minimalistic language to generate synthesizable
-hardware via an intermediate language, such as VHDL. SHDL shall
-be simple to learn and it shall be clear which constructs are synthesizable.
-Maybe all constructs are synthesizable and a simulation needs another
-language to implement the test bench.
+\input{shdl}
 
-\subsection{Short Notes}
-
-\martin{I like the x.next notion from MyHDL for register values as it shows
-that the value will change on the next clock tick and is not yet available.
-However, MyHDL uses this for combinational signals as well, which is not
-so good.}
 
 \section{Conclusion}
 \label{sec:conclusion}
