@@ -245,6 +245,24 @@ SystemVerilog
 
 MyHDL news group archive: \url{http://blog.gmane.org/gmane.comp.python.myhdl}
 
+\section{A New Language}
+
+This is a start, which shall go into it's own paper, of a new language.
+Name is needed, but the current acronym is SHDL.
+
+SHDL shall be a simple, minimalistic language to generate synthesizable
+hardware via an intermediate language, such as VHDL. SHDL shall
+be simple to learn and it shall be clear which constructs are synthesizable.
+Maybe all constructs are synthesizable and a simulation needs another
+language to implement the test bench.
+
+\subsection{Short Notes}
+
+\martin{I like the x.next notion from MyHDL for register values as it shows
+that the value will change on the next clock tick and is not yet available.
+However, MyHDL uses this for combinational signals as well, which is not
+so good.}
+
 \section{Conclusion}
 \label{sec:conclusion}
 
