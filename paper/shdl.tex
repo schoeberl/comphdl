@@ -27,6 +27,13 @@ that the value will change on the next clock tick and is not yet available.
 However, MyHDL uses this for combinational signals as well, which is not
 so good.}
 
+Most languages handle as primary target circuit simulation and
+synthesis as after thought. This often leads to a language, where it
+is not clear which constructs can be synthesized and which not.
+However, we shall approach the circuit
+design with \emph{Synthesize first} to have a clear notion of synthesizable
+constructions in the language.
+
 
 \subsection{Concepts}
 We should make explicit and clear fundamental concepts
