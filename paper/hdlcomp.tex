@@ -87,6 +87,34 @@ HDCamel
 
 \section{Introduction}
 
+Verilog and VHDL has served us decades as the main languages for designing
+digital systems. However, both languages have a large legacy and might not be
+the most efficient languages to (1) build large digital systems and (2) to learn
+hardware design.
+
+In the software domain there has been a boom in new programming languages
+in the last years. Programmers are more flexible now to change programming
+languages when the job to been done is simplified. Within the hardware design
+community a new HDL has a hard time to get established. As there is a way
+smaller user base simulation and synthesize tools vendors are reluctant to
+support a new HDL.
+
+However, in recent year there have ben new approaches to use modern
+languages as a basis for hardware design. The HDL is \emph{embedded}
+in those new languages. The tool supporting this HDLs usually provide
+support for simulation. For synthesize of hardware VHDL or Verilog is
+generated. Therefore, the \emph{old} HDLs serve as an intermediate
+language to have the full support of synthesize tools.
+
+The question is: is hardware design more productive with those new
+languages? Are these languages mature enough for real world designs?
+In this paper we explore several new HDLs in the context of hardware
+design with FPGAs. When switching to a new design methodology one
+wants to minimize risk and dependency on a a singe vendor. Open source
+projects fulfill the role of risk minimization. In the worst case one can hire
+someone to fix a bug in the HDL. Therefore, we restrict our language survey
+to open-source projects.
+
 \subsection{Assessment Criteria}
 
 
@@ -114,6 +142,7 @@ Further questions to be answered:
 \item Is simulation in the HDL possible?
 \item Is there a clear line between the synthsizable  and not synthsizable parts of the language?
 \item Can it be used in a first semester digital electronics course?
+\item What about programming in the large? Are name spaces supported?
 \item Quality of generated code: hardware resources and maximum clock frequency
 \item Mixed language (with VHDL and/or Verilog) usage?
 \item Size of the user group and support
@@ -156,7 +185,12 @@ need to be specified. As a result after high level simulation more work is neede
 to have synthesizable code.}
 
 
-
+MyHDL takes a very software oriented approach to hardware design. The emphasis
+is on unit test, which is a new a interesting approach in hardware design.
+However, teaching digital electronic with VHDL showed the issues of students
+thinking to much in the term of a \emph{program} instead of the hardware
+structure. We think a HDL shall describe the actual structure and not an
+algorithm in form of a software program.
 
 
 \begin{itemize}
