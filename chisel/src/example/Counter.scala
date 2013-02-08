@@ -10,7 +10,7 @@ class Counter(size: Int) extends Component {
   val io = new Bundle {
     val out = UFix(OUTPUT, size)
   }
-  val r1 = Reg(UFix(0, size))
+  val r1 = Reg(resetVal = UFix(0, size))
   r1 := r1 + UFix(1)
   io.out := r1
 

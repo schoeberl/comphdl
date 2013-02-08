@@ -249,6 +249,11 @@ results. ``val r1 = Reg(resetVal = UFix(0, size))'' describes a register with
 size bits, but the expression ``val r1 = Reg(UFix(0, size))'' results in a single
 bit register.
 
+\subsubsection{FlexPRET/Chisel Questions}
+
+Why are the pipeline registers individual gals per filed? Why not a Bundle,
+which could also be used for component IO?
+
 \subsection{Lava}
 
 Lava is a HDL based on Haskell~\cite{Lava:1998}. The first version described
