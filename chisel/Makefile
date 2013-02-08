@@ -16,13 +16,17 @@ SBT = java -Xmx1024M -Xss8M -XX:MaxPermSize=128M -jar sbt/sbt-launch.jar
 
 # command to compile the C++ files is missing
 
+MAIN=example.CounterMain
 
 all:
-	$(SBT) "run-main example.HelloMain --targetDir generated"
+	$(SBT) "run-main $(MAIN) --targetDir generated"
+
+test:
+	$(SBT) "run-main $(MAIN) --test --compile --vcd --genHarness --targetDir generated"
 
 # the Verilog version
 verilog:
-	$(SBT) "run-main example.HelloMain --targetDir generated --backend v"
+	$(SBT) "run-main $(MAIN) --targetDir generated --backend v"
 
 ###### Minimum Makefile ends here ########
 

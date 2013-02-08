@@ -106,6 +106,9 @@ support for simulation. For synthesize of hardware VHDL or Verilog is
 generated. Therefore, the \emph{old} HDLs serve as an intermediate
 language to have the full support of synthesize tools.
 
+This paper compares modern hardware description languages and
+assesses if they are mature and useful for FPGA designs.
+
 The question is: is hardware design more productive with those new
 languages? Are these languages mature enough for real world designs?
 In this paper we explore several new HDLs in the context of hardware
@@ -225,6 +228,26 @@ The MyHDL manual introduces too early, too many non-synthesizable constructs.
 They might be good for test benches, but that should be stated more explicit.
 
 Positive is conversion to VHDL and Verilog.
+
+\subsection{Chisel}
+
+Chisel is a HDL developed at the University of California, Berkeley~\cite{chisel:dac2012}.
+Chisel is embedded in Scala.
+
+As the language is a research vehicle and mainly used internally, getting
+started just with the tutorial is harder than getting started with MyHDL.
+Besides learning Chisel, some knowledge of Scala is needed. Furthermore,
+the tool flow for Chisel is based on the build tool sbt, which itself needs to
+be learned.
+
+\todo{The tutorial starts too complex.}
+
+\subsubsection{Issues, Questions}
+
+The automatic inference of the correct bit length can lead to surprising
+results. ``val r1 = Reg(resetVal = UFix(0, size))'' describes a register with
+size bits, but the expression ``val r1 = Reg(UFix(0, size))'' results in a single
+bit register.
 
 \subsection{Lava}
 
