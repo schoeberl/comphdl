@@ -42,10 +42,11 @@
     keywordstyle=\bfseries, mathescape=true, }}
 
 
-\title{Working title: Compare HDLs or\\
-Are New Hardware Description Languages Available for FPAG
-Development and Teaching Digital Design?}
+%\title{Working title: Compare HDLs or\\
+%Are New Hardware Description Languages Available for FPAG
+%Development and Teaching Digital Design?}
 
+\title{Are Modern Hardware Description Languages Ready for FPGA Design?}
 \author{Martin Schoeberl\\
 Department of Applied Mathematics and Computer Science, 
 Technical University of Denmark\\masca@imm.dtu.dk
@@ -60,7 +61,19 @@ broman@eecs.berkeley.edu
 \maketitle \thispagestyle{empty}
 
 \begin{abstract}
-Compare different HDLs.
+\martin{This is just a first, way too long abstract.}
+Since decades we use VHDL and Verilog as the main entry
+languages for hardware design. However, those are old languages
+originally not designed for synthesize. In the mean time the software
+community has made big improvements in programming languages and
+increased the productivity.
+
+Can we leverage some of the development in programming
+languages for hardware description? Several new hardware
+description languages (HDL), based on software programming
+languages, are proposed. In this paper we evaluate these
+new HDLs and asses if they are ready for prime time.
+\martin{Describe what we did find out}
 \end{abstract}
 
 \section{General}
@@ -240,7 +253,19 @@ Besides learning Chisel, some knowledge of Scala is needed. Furthermore,
 the tool flow for Chisel is based on the build tool sbt, which itself needs to
 be learned.
 
+The tutorial for Chisel is already a complex set of exercises, solution, and
+automation for building those exercises. In our opinion this starts with a
+too steep learning course. Therefore, we have cut down the tutorial to
+the minimum of a hardware \emph{Hello World} program: a blinking LED
+on an FPGA board.\footnote{This Chisel Hello World introduction is
+available as part of our HDL comparison code at:
+\url{https://github.com/schoeberl/comphdl/tree/master/hello-chisel}}
+
 \todo{The tutorial starts too complex.}
+
+\martin{Are enums missing? Does the bit width always need to be known?}
+
+\martin{Check if asynchronous or synchronous reset is used.}
 
 \subsubsection{Issues, Questions}
 
@@ -348,8 +373,11 @@ MyHDL news group archive: \url{http://blog.gmane.org/gmane.comp.python.myhdl}
 \section{Paper Plan}
 
 Comparison to FPL 22 March
+
 Extension of comparison to TII or TCAD
+
 New language: Euromicro on DSD 11 March, ESWEEK 29 March, although best fit would be DAC and DATE
+
 Embedded language without seeing the host: some program languages conference
 
 \end{document}
