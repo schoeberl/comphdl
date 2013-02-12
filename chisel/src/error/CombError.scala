@@ -50,11 +50,12 @@ class CombErr() extends Component {
   val ticka = when(limit) { Bits(0) } .otherwise { Bits(1) }
   val tickb = when(limit) { Bits(1) } .otherwise { Bits(0) }
   
-      r1 := r1 + UFix(1)
+  r1 := r1 + UFix(1)
   when (limit) {
     r1 := UFix(0)
   }
   
+  // Observe the values in the VCD file
   io.ticka := ticka
   io.tickb := tickb
 }

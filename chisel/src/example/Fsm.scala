@@ -5,7 +5,7 @@
  * Author: Martin Schoeberl (martin@jopdesign.com)
  * License: Simplified BSD License
  * 
- * Blinking LED: the FPGA version of Hello World
+ * A simple finite state machine (FSM) with logic to drive as test bench. 
  */
 
 package example
@@ -23,12 +23,12 @@ class FsmContainer() extends Component {
   var tck = new Tick();
   
   val led = Reg(resetVal = Bits(1, 8))
+  val led_next = Cat(led(6, 0), led(7))
   
   when (tck.io.tick === Bits(1)) {
-    // led := Cat(led(6, 0), led(7))
-    led := ~led
+    led := led_next
   }
-  io.led := led
+  io.led := ~led
 }
 
 /**
@@ -53,7 +53,9 @@ class Tick() extends Component {
   
   io.tick := tick
 
-// the following does not work - example in pacakge error
+  // **** uninteresting stuff below ****
+  
+// the following does not work - example in package error
 //  val ticka = when(limit) { Bits(0) } .otherwise { Bits(1) }
 //  val tickb = when(limit) { Bits(1) } .otherwise { Bits(0) }
   
@@ -93,6 +95,7 @@ class FsmTest(fsm: FsmContainer) extends Tester(fsm, Array(fsm.io)) {
 object FsmMain {
   def main(args: Array[String]): Unit = {
     // chiselMain(args, () => new FsmContainer());
+    // Looks like the MainTest is also fine for Verilog code generation
     chiselMainTest(args, () => new FsmContainer()) {
       f => new FsmTest(f)
     }
