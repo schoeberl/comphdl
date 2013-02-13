@@ -1,0 +1,118 @@
+\documentclass[a4paper, conference]{IEEEtran}
+%\documentclass[10pt,a4paper]{article}
+
+% The amsmath and epsfig packages greatly simplify the process of adding
+% equations and figures to the document, and thus their use is highly
+% recommended.
+% ------------
+
+
+%\usepackage{pslatex} % -- times instead of computer modern
+\usepackage[colorlinks=false,bookmarks=false]{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{amssymb,amsmath}
+
+\newcommand{\code}[1]{{\small{\texttt{#1}}}}
+\usepackage{cite}
+
+\renewcommand*\ttdefault{txtt}
+
+
+\usepackage{listings}
+
+\newcommand{\todo}[1]{{\emph{TODO: #1}}}
+
+\newcommand{\martin}[1]{{\color{blue} Martin: #1}}
+\newcommand{\abcdef}[1]{{\color{red} Author2: #1}}
+
+% uncomment following for final submission
+%\renewcommand{\todo}[1]{}
+%\renewcommand{\author2}[1]{}
+%\renewcommand{\martin}[1]{}
+
+\begin{document}
+
+\title{Notes and Comments on Chisel}
+
+\author{Martin Schoeberl}
+
+% Most conferences have their own commands for author headings.
+
+%\author{\IEEEauthorblockN{Edgar Lakis, Martin Schoeberl}\\
+%\IEEEauthorblockA{Department of Applied Mathematics and Computer Science\\
+%Technical University of Denmark\\
+%Email: \texttt{edgar.lakis@gmail.com}, \texttt{masca@imm.dtu.dk}}
+%}
+
+
+\maketitle \thispagestyle{empty}
+
+\begin{abstract}
+this paper is a collection of notes and comments on the Chisel HDL.
+Maybe this will be useful for a future Chisel manual.
+\end{abstract}
+
+
+\section{Introduction}
+\label{sec:intro}
+
+\section{Comments}
+
+What does tick() and what does step() do for testing?
+  vars in step are input, the output is either set by the test bench to compare to, or set by the component output values when not set in the test bench.
+How get to inner signals on testing?
+What is the meaning if isTrace?
+
+val x = expr is an assignment.
+val y = type is a forward declaration
+y := expr is then the assignment, := is called the wiring operator
+
+The waveform shows the input of an register, not the output.
+The waveform shows IO signals and registers.
+The waveform shows only IO signals that are in use.
+
+Try out multiple wiring operations, setup test play around with print of output, may be no -vcd now
+
+This is the way to get a printable output:
+
+\begin{verbatim}
+      step(svars, ovars, false)
+      val out = ovars(c.io.out).litValue()
+\end{verbatim}
+
+
+What is the meaning of data in Reg? Is it the input signal?
+
+What does a step() when testing combinational circuits? Just change the input values, right? Clock is simply ignored.
+
+Test bench is mix of Chisel and Scala code. The hardware description needs plain Chisel, 'no Scala constructs'. Which are the forbidden Scala constructs?
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+
+\subsection*{Acknowledgment}
+
+\todo{Sometimes we received some help. Sometimes external funding.}
+
+%This work was partially funded under the
+%European Union's 7th Framework Programme
+%under grant agreement no. 288008:
+%Time-predictable Multi-Core Architecture for Embedded
+%Systems (\mbox{T-CREST}).
+
+%\subsection*{Source Access}
+
+
+% should be IEEE, but has urls - issue as usual :-(
+%\bibliographystyle{IEEEtran}
+\bibliographystyle{plain}
+% Please do not add any references to msbib.bib.
+% They get lost when I 'generate' is again (see Makefile)
+\bibliography{msbib}
+
+\end{document}
