@@ -16,13 +16,16 @@ SBT = java -Xmx1024M -Xss8M -XX:MaxPermSize=128M -jar sbt/sbt-launch.jar
 
 # command to compile the C++ files is missing
 
+MAIN=error.CombErrMain
 MAIN=example.BlinkMain
 MAIN=example.FsmMain
+MAIN=error.UnusedCErrorMain
 
 all:
 	$(SBT) "run-main $(MAIN) --targetDir generated"
 
 test:
+	-rm -rf generated
 	$(SBT) "run-main $(MAIN) --test --compile --vcd --genHarness --targetDir generated"
 
 # the Verilog version

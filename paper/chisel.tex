@@ -91,6 +91,11 @@ What does a step() when testing combinational circuits? Just change the input va
 
 Test bench is mix of Chisel and Scala code. The hardware description needs plain Chisel, 'no Scala constructs'. Which are the forbidden Scala constructs?
 
+Hardware that is not really used is optimized away for the simulation.
+This might be just a little bit inconvenient when signals cannot be seen in
+the waveform. However, this is very annoying when it results in C code
+that connote be compiled.
+
 \section{Conclusion}
 \label{sec:conclusion}
 
