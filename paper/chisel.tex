@@ -96,6 +96,16 @@ This might be just a little bit inconvenient when signals cannot be seen in
 the waveform. However, this is very annoying when it results in C code
 that connote be compiled.
 
+1)What is a good way to monitor internal signals? for debugging
+
+you can list the signals to monitor using the sequence args to Tester:
+
+  class GCDTests(c: GCD) extends Tester(c, Array(c.io)) ...
+
+where you just add extra nodes to the Array.  these will then appear in your ovars from calls to step:
+
+Rewrite the above with the example talen from Patmos in chisel.
+
 \section{Conclusion}
 \label{sec:conclusion}
 
