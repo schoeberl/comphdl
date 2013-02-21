@@ -96,6 +96,53 @@ This might be just a little bit inconvenient when signals cannot be seen in
 the waveform. However, this is very annoying when it results in C code
 that connote be compiled.
 
+Take care that your components actually really extend Component. Otherwise
+you get strange behavior.
+
+\section{Notes from Talk with Jonathan}
+
+Questions:
+
+* Usage of Bundles for interface and register ok?
+
+Yes, looks like. No direction when the Bundle is used for a register as well.
+
+* How to write a table?
+
+VHDL:
+process(address) begin
+
+\begin{verbatim}
+case address is
+    when "0000000000" => q <= "00000011000000000000000000000001";
+    when "0000000001" => q <= "00000000011110111101000000010000";
+    when "0000000010" => q <= "00000010010100100000000000110000";
+    when "0000000011" => q <= "00000010110000000000010010000000";
+
+One way in chisel:
+
+  val v = Vec(4) { Bits(width=32) }
+  v(0) = Bits("h_0002_00ff")  // maybe not executed
+  v(1) = Bits("h_0004_0001")  // addi    r2 = r0, 1;
+  v(2) = Bits("h_0006_0002")  // addi    r3 = r0, 2;
+  v(3) = Bits("h_0208_2180") // add     r4 = r2, r3;
+
+But better to use ROM:
+
+  val muls = new Array[UFix](256)  for (x <- 0 until 16; y <- 0 until 16)    muls((x << 4) | y) = x * y  val tbl = ROM(muls){ UFix(8) }
+
+\end{verbatim}
+
+* Asynchronous reset -- it will be considered. I might do a patch for that.
+
+* Issue sometimes with dead code - not in the waveform and may
+result in a C compiler error. But would be nice during development and debugging
+
+* Maybe use Chisel source for the project? Only useful when doing Chisel development.
+
+* Waveform display of a register is one off (shows the input and not the output):
+will be considered.
+
 \section{Conclusion}
 \label{sec:conclusion}
 
