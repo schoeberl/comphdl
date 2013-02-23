@@ -60,6 +60,13 @@ Maybe this will be useful for a future Chisel manual.
 \section{Introduction}
 \label{sec:intro}
 
+Chisel is a promising approach to raise the level of abstraction in
+hardware design and therefore speedup the development of hardware
+similar as modern software languages sped up software development.
+Chisel is a HDL developed at the University of California, Berkeley~\cite{chisel:dac2012}.
+In this paper we collect our experiences on learning and using Chisel.
+The first Chisel project, after some small \emph{Hello World} examples,
+is the recoding (and partially redesigning) of the Patmos RISC pipeline~\cite{patmos:ppes2011}.
 \section{Comments}
 
 What does tick() and what does step() do for testing?
@@ -109,6 +116,19 @@ Rewrite the above with the example talen from Patmos in chisel.
 Take care that your components actually really extend Component. Otherwise
 you get strange behavior.
 
+Wrong code can fail in very different ways:
+
+\begin{enumerate}
+\item Silent, wrong syntax (or at least syntax with no meaning) can just behave strange
+\item Error from chisel exploration, which it good
+\item Java runtime exception, e.g., null pointer exception
+\item C++ compile error. E.g., multiple definitions of a type in the include file or undefined
+variables in the .cpp file. The late comes from HDL code that is not used (no output dependency)
+\end{enumerate}
+
+A tip for this: Compile often, after incremental changes. Introduce artificial
+dependencies to keep code live, even when not finished.
+
 \section{Notes from Talk with Jonathan}
 
 Questions:
@@ -139,9 +159,14 @@ One way in chisel:
 
 But better to use ROM:
 
-  val muls = new Array[UFix](256)  for (x <- 0 until 16; y <- 0 until 16)    muls((x << 4) | y) = x * y  val tbl = ROM(muls){ UFix(8) }
+  val muls = new Array[UFix](256)
+  for (x <- 0 until 16; y <- 0 until 16)
+    muls((x << 4) | y) = x * y
+  val tbl = ROM(muls){ UFix(8) }
 
 \end{verbatim}
+
+However, the ROM examples from the slides do not compile :-(
 
 * Asynchronous reset -- it will be considered. I might do a patch for that.
 
