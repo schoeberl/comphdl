@@ -107,7 +107,7 @@ that cannot be compiled.
 
 you can list the signals to monitor using the sequence args to Tester:
 
-  class GCDTests(c: GCD) extends Tester(c, Array(c.io)) ...
+class GCDTests(c: GCD) extends Tester(c, Array(c.io)) ...
 
 where you just add extra nodes to the Array.  these will then appear in your ovars from calls to step:
 
@@ -128,6 +128,19 @@ variables in the .cpp file. The late comes from HDL code that is not used (no ou
 
 A tip for this: Compile often, after incremental changes. Introduce artificial
 dependencies to keep code live, even when not finished.
+
+Check out if conditional updates are just for registers or also for combinational circuits
+-- they apply also for combinational circuits and must have defaults (independent of
+full coverage).
+
+Not setting a reset value results in not using reset, which is good for on-chip memories. Shown by Michael, check it out.
+
+Is new now optional in Scala/Chisel? Check it. If yes, just drop it. At least for extending Bundle()
+it is not optional.
+
+How do Bundles and sub bundles actually work? When are those data structures allocated?
+Is the declaration the constructor? Yes, the code not within a method is constructor code.
+The whole chisel description is actually constructor code.
 
 \section{Notes from Talk with Jonathan}
 
