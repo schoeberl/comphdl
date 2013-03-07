@@ -129,6 +129,9 @@ variables in the .cpp file. The late comes from HDL code that is not used (no ou
 A tip for this: Compile often, after incremental changes. Introduce artificial
 dependencies to keep code live, even when not finished.
 
+Duplication of definitions in the .h file usually come from unconnected
+io ports, which result from unused input ports.
+
 Check out if conditional updates are just for registers or also for combinational circuits
 -- they apply also for combinational circuits and must have defaults (independent of
 full coverage).
