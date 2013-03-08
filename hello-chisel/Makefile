@@ -22,7 +22,7 @@ hdl:
 
 # C++ genertion
 cpp:
-	$(SBT) "run-main example.HelloMain --targetDir generated"
+	$(SBT) "run-main hello.HelloMain --targetDir generated"
 
 ###### Minimum Makefile ends here ########
 
