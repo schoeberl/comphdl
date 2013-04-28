@@ -1,5 +1,6 @@
-\documentclass[10pt, conference, compsocconf]{IEEEtran}
+\documentclass[10pt, technote, draftcls, onecolumn]{IEEEtran}
 
+%conference, compsocconf,
 
 %\usepackage{pslatex} % -- times instead of computer modern
 
@@ -33,6 +34,7 @@
 
 \newcommand{\martin}[1]{\comment{Martin}{#1}{Blue}}
 \newcommand{\david}[1]{\comment{David}{#1}{Blue}}
+\newcommand{\cfelton}[1]{\comment{Chris}{#1}{Blue}}
 
 
 \begin{document}
@@ -60,6 +62,9 @@ Technical University of Denmark\\masca@imm.dtu.dk
 David Broman\\
 University of California, Berkeley and Link{\"o}ping University\\
 broman@eecs.berkeley.edu
+   \vspace{1ex}\\ 
+Addition comments by Christohper L. Felton\\
+cfelton@ieee.org
 }
 
 
@@ -96,11 +101,19 @@ originally not designed for synthesize. In the mean time the software
 community has made big improvements in programming languages
 resulting in increased productivity.
 
+
+%\cfelton{The above not designed for synthesis is not a useful
+%point because an HDL needs to be a good language that describes the
+%hardware and the synthesis flows from it.  That is why Verilog and VHDL
+%have been successful with synthesis as well as modeling.  I don't
+%believe any of the languages being reviewed have a complete bottom
+%up synthesis oriented design?}
+
 Can we leverage some of the development in programming
 languages for hardware description? Several new hardware
 description languages (HDL), based on software programming
 languages, are proposed. In this paper we evaluate these
-new HDLs and asses if they are ready for prime time.
+new HDLs and assess if they are ready for prime time.
 
 \martin{Describe what we did find out}
 \end{abstract}
@@ -118,14 +131,15 @@ Languages to look at:
 
 http://tomahawkins.org/ two languages at the bottom
 
-MyHDL
-Chisel
-Lava
-Gezel
-JHDL
-Confluence
-HDCamel
-
+\begin{itemize}
+   \item MyHDL
+   \item Chisel
+   \item Lava
+   \item Gezel
+   \item JHDL
+   \item Confluence
+   \item HDCamel
+\end{itemize}
 
 \section{Introduction}
 
@@ -224,19 +238,42 @@ in the hardware the type of a signal or a register is statically fixed. Type err
 Python are only detected at runtime by extensive testing. In a statically typed
 language the compiler finds all type errors at compile time.
 
+\cfelton{This is a common topic for dynamic languages like Python, strong typing
+vs. dynamic typing.  Python has typing, you can't do $"me"+8$.  The subset of 
+the HDL that explicitly describes the HDL to be converted has to be statically
+typed.  The code is generated before ever running!  The types have be be defined.
+You have this interesting mix of the embedded HDL.  As you pointed out, the converter
+is not a compiler, it does not do (or intended) to do a thorough job of static 
+analysis.  But the error messages are continuously improved by the myhdl community}
+
 \todo{Comment: Python is easy going with dynamic typing and test benches run.
 However, when converting to VHDL or Verilog, types (i.e., lengths of bit vectors)
 need to be specified. As a result after high level simulation more work is needed
 to have synthesizable code.}
 
+\cfelton{Yes, myhdl is very similar to existing HDLs, the converter does close 
+to a one-to-one translation from myhld to Verilog/VHDL.  But myhdl pushes the 
+abstraction level as high as possible.  Example $intbv$ can be defined with 
+$min$ and $max$ vs. the number of bits.  Long, time digital engineers we often
+think in bits but when defining the $min$ and $max$ the intent is much clearer
+for anyone else reading the code in the future!!!}
 
 MyHDL takes a very software oriented approach to hardware design. The emphasis
 is on unit test, which is a new a interesting approach in hardware design.
 However, teaching digital electronic with VHDL showed the issues of students
-thinking to much in the term of a \emph{program} instead of the hardware
+thinking too much in the term of a \emph{program} instead of the hardware
 structure. We think a HDL shall describe the actual structure and not an
 algorithm in form of a software program.
 
+\cfelton{software oriented \b{process} approach.  I totally disagree based on 
+years of teaching HDL as well.  Students need to understand what a complex
+digital system is and how the HDL works.  I have not run into many students
+that do not quickly grasp the concurrent vs. sequential parts of the language.
+How do you resolve this subjective point?  You would need a controlled study,
+which is very difficult since digital hardware design is a small subset of 
+Eng.  I do agree, highly concurrency vs. globally procedural needs to be 
+emphasized when teaching new HDL'ers.  This is how many new languages are
+evolving to support massive parallelism.}
 
 \begin{itemize}
 \item Very simple to download install
@@ -245,13 +282,27 @@ algorithm in form of a software program.
 
 Installed on Python 2.7. Does it need a 2.x Python or would it run on 3.x as well?
 
+\cfelton{it requires greater than 2.6 (for the 2.x versions).  Limited testing 
+on 3.x.}
+
 How large is the user base on MyHDL? Any open-source projects?
+
+\cfelton{This is hard to gauge.  There are many users that come along and implement
+a project or use for work.  But might not revisit for a couple years, the nature of 
+their work.  They only implement new HDL every couple years.  Overall the active
+user base is smallish, around a dozen or so}
 
 see \url{http://thread.gmane.org/gmane.comp.python.myhdl/2701}
 
 \subsubsection{Remarks}
 
 Why does the manual show code for a simple mix that is not convertible to VHDL?
+
+\cfelton{?? some pointers to these examples would be useful.  In the manual it
+does differentiate between modeling (which the myhdl author and contributors think
+is important) and conversion.  Modeling there are examples that are not intended
+to be converted.  All intended conversion examples should convert.  Also see the 
+"myhdl by example" wiki page on myhdl.org}
 
 This is not the way we would like the process for synchronous logic:
 
@@ -268,6 +319,19 @@ end process FOO_HDL;
 
 The MyHDL manual introduces too early, too many non-synthesizable constructs.
 They might be good for test benches, but that should be stated more explicit.
+
+\cfelton{The author and contributors of myhdl believe the modeling to be one
+of the important features of myhdl.  Not only implementation (conversion).  Many
+developers build models and do trade-off studies before ever implementing.  
+Have a process to work through a design (vs. simply an implementation) the 
+myhdl community believes is important and modeling is part of that.  This is
+where it gets difficult in small examples.  Obviously, in small academic examples
+modeling before had etc. 
+
+The following is an example of creating a reference model first before moving
+onto the implementation.
+http://www.programmableplanet.com/author.asp?section_id=2438&doc_id=254265
+}
 
 Positive is conversion to VHDL and Verilog.
 
@@ -342,7 +406,7 @@ this as an enhancement related to VHDL/Verilog \todo{Check Verilog}.
 \subsection{Documentation and Tutorials}
 
 The MyHDL distribution contains a mental~\cite{myhdl:2010} that includes
-a tutroal.
+a tutorial.
 
 \subsection{Active Community}
 
