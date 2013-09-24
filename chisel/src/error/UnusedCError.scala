@@ -49,26 +49,26 @@ class FetchIO(addrBits: Int) extends Bundle()
   val instr_a = Bits(OUTPUT, 32)
   val instr_b = Bits(OUTPUT, 32)
   val b_valid = Bool(OUTPUT)
-  val pc = UFix(OUTPUT, addrBits)
+  val pc = UInt(OUTPUT, addrBits)
 }
 
-class Fetch(addrBits: Int) extends Component {
+class Fetch(addrBits: Int) extends Module {
   val io = new FetchIO(addrBits)
   
   
   def counter (n: Int) = n
   
   val x = Array(Bits(1), Bits(2), Bits(4), Bits(8))
-  val rom = Vec(x){ UFix(width = 32) }
-  val v = Vec(2) { Bits(width=32) }
+  val rom = Vec(x){ UInt(width = 32) }
+  val v = Vec.fill(2){ Bits(width=32) }
   v(0) = Bits(34)
   v(1) = Bits(65)
   
-  val pc_next = UFix()
-  val pc = Reg(pc_next, resetVal = UFix(0, addrBits))
-//  pc := pc+UFix(1)
+  val pc_next = UInt()
+  val pc = Reg(next=pc_next, init=UInt(0, addrBits))
+//  pc := pc+UInt(1)
   
-  pc_next := pc + UFix(1)
+  pc_next := pc + UInt(1)
   
   io.pc := pc
   io.instr_a := v(pc)
@@ -77,16 +77,16 @@ class Fetch(addrBits: Int) extends Component {
 /**
  * The main (top-level) component of Patmos.
  */
-class UnusedCError() extends Component {
+class UnusedCError() extends Module {
   val io = new Bundle {
     val led = Bits(OUTPUT, 8)
   }
 
-  val fetch = new Fetch(10)
+  val fetch = Module(new Fetch(10))
   // maybe instantiate the FSM here to get some output when
   // compiling for the FPGA
   
-  val led = Reg(resetVal = Bits(1, 8))
+  val led = Reg(init = Bits(1, 8))
   val led_next = Cat(led(6, 0), led(7))
 
   when(Bool(true)) {
@@ -117,6 +117,6 @@ class UnusedCErrorTest(pat: UnusedCError) extends Tester(pat, Array(pat.io, pat.
 
 object UnusedCErrorMain {
   def main(args: Array[String]): Unit = {
-    chiselMainTest(args, () => new UnusedCError()) { f => new UnusedCErrorTest(f) }
+    chiselMainTest(args, () => Module(new UnusedCError())) { f => new UnusedCErrorTest(f) }
   }
 }

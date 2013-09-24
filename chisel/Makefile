@@ -16,10 +16,13 @@ SBT = java -Xmx1024M -Xss8M -XX:MaxPermSize=128M -jar sbt/sbt-launch.jar
 
 # command to compile the C++ files is missing
 
-MAIN=error.CombErrMain
-MAIN=example.BlinkMain
+# CombErrMain contains a tester and C can be compiled with make test
+# MAIN=error.CombErrMain
+# Blink is just HW
+# MAIN=example.BlinkMain
+# Fsm contains a tester
 MAIN=example.FsmMain
-MAIN=error.UnusedCErrorMain
+# MAIN=error.UnusedCErrorMain
 
 all:
 	$(SBT) "run-main $(MAIN) --targetDir generated"

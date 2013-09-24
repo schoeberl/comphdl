@@ -15,14 +15,14 @@ import Node._
 
 import scala.collection.mutable.HashMap
 
-class ErrorContainer() extends Component {
+class ErrorContainer() extends Module {
   val io = new Bundle {
     val led = Bits(OUTPUT, 8)
   }
   
-  var tck = new CombErr();
+  var tck = Module(new CombErr());
   
-  val led = Reg(resetVal = Bits(0, 8))
+  val led = Reg(init = Bits(0, 8))
   
   when (tck.io.ticka === Bits(1) || tck.io.tickb === Bits(1)) {
     led := ~led
@@ -33,15 +33,15 @@ class ErrorContainer() extends Component {
 /**
  * Generate a 2 Hz tick to drive the FSM input test bench.
  */
-class CombErr() extends Component {
+class CombErr() extends Module {
   val io = new Bundle {
     val ticka = Bits(OUTPUT, 1)
     val tickb = Bits(OUTPUT, 1)
   }
 
-  val CNT_MAX = UFix(3);
+  val CNT_MAX = UInt(3);
   
-  val r1 = Reg(resetVal = UFix(0, 25))
+  val r1 = Reg(init = UInt(0, 25))
   
   val limit = r1 === CNT_MAX
 
@@ -50,14 +50,18 @@ class CombErr() extends Component {
   val ticka = when(limit) { Bits(0) } .otherwise { Bits(1) }
   val tickb = when(limit) { Bits(1) } .otherwise { Bits(0) }
   
-  r1 := r1 + UFix(1)
+  r1 := r1 + UInt(1)
   when (limit) {
-    r1 := UFix(0)
+    r1 := UInt(0)
   }
   
   // Observe the values in the VCD file
-  io.ticka := ticka
-  io.tickb := tickb
+// Maybe this issue has been fixed in Chisel 2.0 as the following is not
+// allowed anymore
+//  io.ticka := ticka
+//  io.tickb := tickb
+  io.ticka := Bits(0)
+  io.tickb := Bits(0)
 }
 
 class ErrorTest(ec: ErrorContainer) extends Tester(ec, Array(ec.io)) {
@@ -79,7 +83,7 @@ class ErrorTest(ec: ErrorContainer) extends Tester(ec, Array(ec.io)) {
 
 object CombErrMain {
   def main(args: Array[String]): Unit = {
-    chiselMainTest(args, () => new ErrorContainer()) {
+    chiselMainTest(args, () => Module(new ErrorContainer())) {
       f => new ErrorTest(f)
     }
 

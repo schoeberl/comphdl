@@ -6,12 +6,12 @@ import Chisel._
 import Node._
 import scala.collection.mutable.HashMap
 
-class Counter(size: Int) extends Component {
+class Counter(size: Int) extends Module {
   val io = new Bundle {
-    val out = UFix(OUTPUT, size)
+    val out = UInt(OUTPUT, size)
   }
-  val r1 = Reg(resetVal = UFix(0, size))
-  r1 := r1 + UFix(1)
+  val r1 = Reg(init = UInt(0, size))
+  r1 := r1 + UInt(1)
   io.out := r1
 
 }
@@ -35,8 +35,8 @@ class CounterTest(c: Counter) extends Tester(c, Array(c.io)) {
 
 object CounterMain {
   def main(args: Array[String]): Unit = {
-    //    chiselMain(args, () => new Counter(10));
-    chiselMainTest(args, () => new Counter(4)) {
+    //    chiselMain(args, () => Module(new Counter(10)));
+    chiselMainTest(args, () => Module(new Counter(4))) {
       c => new CounterTest(c)
     }
   }

@@ -9,14 +9,14 @@ Therefore, this is a try to cut it down to the minimum.
 
 The example project consists of:
 
-   src/Hello.scala       The source of a hardware description of a blinking LED
-   Makefile              drives the build process
-   project/Build.scala   Configuration to download Chisel and for the Chisel project
-   sbt/sbt-launch.jar    is the SBT build tool for Scala
-   verilog/hello_top.v   is a top level file for the FPGA
-   bemicro               contains the Altera Quartus project files for the BeMicro board
+   src/Hello.scala     The source of a hardware description of a blinking LED
+   Makefile            drives the build process
+   build.sbt           Configuration to download Chisel and for the Chisel project
+   sbt/sbt-launch.jar  is the SBT build tool for Scala
+   verilog/hello_top.v is a top level file for the FPGA
+   bemicro             contains the Altera Quartus project files for the BeMicro board
 
 The actual project configuration (files, folders, main entry,...) is
-distributed in Build.scala and as parameters to Chisel in the Makefile.
+distributed in build.sbt and as parameters to Chisel in the Makefile.
 
 Remarks and comments are distributed over the individual files.
