@@ -13,19 +13,19 @@ package hello
 import Chisel._
 import Node._
 
-// The blinking LED componenet
+// The blinking LED component
 // BeMicro has a 16 MHz clock
-class Hello() extends Component {
+class Hello extends Module {
   val io = new Bundle {
-    val led = UFix(OUTPUT, 1)
+    val led = UInt(OUTPUT, 1)
   }
-  val CNT_MAX = UFix(16000000/2-1);
-  val r1 = Reg(resetVal = UFix(0, 25))
-  val blk = Reg(resetVal = UFix(0, 1))
+  val CNT_MAX = UInt(16000000/2-1);
+  val r1 = Reg(init = UInt(0, 25))
+  val blk = Reg(init = UInt(0, 1))
   
-  r1 := r1 + UFix(1)  
+  r1 := r1 + UInt(1)  
   when (r1 === CNT_MAX) {
-    r1 := UFix(0)
+    r1 := UInt(0)
     blk := ~blk
   }
   io.led := blk
@@ -34,6 +34,6 @@ class Hello() extends Component {
 // Generate the Verlog code by invoking chiselMain() in our main()
 object HelloMain {
   def main(args: Array[String]): Unit = { 
-    chiselMain( args, () => new Hello())
+    chiselMain( args, () => Module(new Hello()))
   }
 }
