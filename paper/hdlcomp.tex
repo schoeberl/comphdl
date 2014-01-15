@@ -51,7 +51,7 @@
 Department of Applied Mathematics and Computer Science, 
 Technical University of Denmark\\masca@imm.dtu.dk
   \vspace{1ex}\\ 
-David Broman ??still in??\\
+David Broman\\
 University of California, Berkeley and Link{\"o}ping University\\
 broman@eecs.berkeley.edu
 }
@@ -61,6 +61,29 @@ broman@eecs.berkeley.edu
 \maketitle \thispagestyle{empty}
 
 \begin{abstract}
+Since decades we use VHDL and Verilog as the main entry
+languages for hardware design. Simulation and synthesize
+tools support both languages quite well. Establishing a new
+hardware description language and hoping for support from
+the main tool vendors seems impossible.
+
+However, in the last years several approaches for new hardware
+description languages have been established. Those languages
+provide advancements in software languages, such as dynamic
+typing and object orientation, to the hardware designer.
+The new languages usually provide their own frame work for
+testing and simulation. However, for hardware synthesis they
+use Verilog or VHDL as an intermediate language and therefore
+have the full tool support.
+
+In this paper we explore MyHDL, Chisel, and Bluspec for FPGA
+design. We provide simple to medium complex designs in those
+three languages and in VHDL as reference to show the different
+features. From our experiments we conclude that all three languages
+are ready to be used for new hardware designs.
+
+\emph{an alternative abstract:}
+
 Since decades we use VHDL and Verilog as the main entry
 languages for hardware design. However, those are old languages
 originally not designed for synthesize. In the mean time the software
@@ -358,8 +381,8 @@ SystemVerilog
 MyHDL news group archive: \url{http://blog.gmane.org/gmane.comp.python.myhdl}
 
 
-
-\input{shdl}
+% \martin{This should not be in this paper:}
+% \input{shdl}
 
 
 \section{Conclusion}
