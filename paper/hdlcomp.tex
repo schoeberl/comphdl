@@ -6,6 +6,7 @@
 \usepackage{listings}
 \usepackage{courier}
 
+
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -21,6 +22,11 @@
 
 \usepackage{listings}
 %\usepackage{subfigure}
+
+% Packages for drawing state machines
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
 
 \newcommand{\comment}[3]{\paragraph*{\textbf{#1}}{\color{#3}#2}}
 
@@ -376,6 +382,50 @@ SystemC?
 
 SystemVerilog
 
+\section{Case Study}
+
+\section{Sport Watch}
+In this example we model the functionality of a modern sport
+watch. A sport watch can be used to 
+measure the time of a sport activity. Besides measuring time for the
+whole activity, the watch should also be able to show lap times. The
+purpose of this example is to create a small circuit that includes both
+a data path and an FSM.
+
+The system has two buttons that generate input signals. Button $B_1$
+is used for starting and stopping the timer, whereas button $B_2$ is
+used both for measuring a lap time and to reset the timer to zero. More
+specifically, the watch can be modeled to have three states: $S$
+(timer stopped), $R$ (timer is running), and $L$ (the timer is
+running, but showing lap time). The following timed FSM illustrates
+the behavior of the watch.\\
+
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \node[initial,state]                      (S) {$S$};
+  \node[state]         [right of = S] (R) {$R$};
+  \node[state]         [above right of = R] (L) {$L$};
+
+  \path (S) edge [bend left]         node {$B_1$ pushed}        (R)
+            edge [loop above]        node {$B_2$ pushed for 3s} (S)
+        (R) edge [bend left]         node {$B_1$ pushed}        (S)
+            edge [right, bend right] node {~$B_2$ pushed}       (L)
+        (L) edge [left, bend right]  node {after 10s}           (R)
+;
+\end{tikzpicture}
+
+Note that the loop edge at state $S$ resets the timer. The output
+of the watch is a four digit display. When the watch is in state
+$R$ and the elapsed time is below one minute, the display should show
+seconds in the two most significant digits and fractions of seconds in
+the two least significant digits. If the current time is more than one
+minute, the two most significant digits show minutes and the least
+significant digits seconds. When the state is in $L$, the display
+should show the lap time, but the watch should continue to count in
+the background.
+
+
 \section{Further Notes and Reading Material}
 
 MyHDL news group archive: \url{http://blog.gmane.org/gmane.comp.python.myhdl}
@@ -383,6 +433,7 @@ MyHDL news group archive: \url{http://blog.gmane.org/gmane.comp.python.myhdl}
 
 % \martin{This should not be in this paper:}
 % \input{shdl}
+
 
 
 \section{Conclusion}
