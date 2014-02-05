@@ -1,4 +1,3 @@
-
 Vending Machine Digital Machine
 ================================
 
@@ -65,12 +64,12 @@ I talk about buttons 1,2,3,4 not the possible encoding
 on a piece of hardware):
 
     button        led code              total coin
-   -------        --------              ----------
-   0              0x00  00_0000_00      0
-   1              0x04  00_0001_00      0
-   2              0x04  00_0001_00      5
-   3              0x04  00_0001_00      15
-   2              0xC3  11_0000_11      20  
+    -------        --------              ----------
+    0              0x00  00_0000_00      0
+    1              0x04  00_0001_00      0
+    2              0x04  00_0001_00      5
+    3              0x04  00_0001_00      15
+    2              0xC3  11_0000_11      20  
    
 
 Simplified ASMD:
