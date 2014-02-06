@@ -1,7 +1,7 @@
 BSC=bsc
 BSCFLAGS=-verilog
 
-compFsmTest: CompFSM.bo TestFSM.bo
+compFsmTest: PrioritySetReset.bo CompFSM.bo TestFSM.bo
 	$(BSC) $(BSCFLAGS) -e mkTestFSM -o $@
 
 %.bo: %.bsv
