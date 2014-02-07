@@ -32,8 +32,12 @@ class Sequence:
         else:
             while True:
                 total = [choice(coins[1:])
-                         for rr in range(randint(0,103))]                
-                if sum(total) != self.cost:
+                         for rr in range(randint(0,103))]
+                includes_total = False
+                for ii in xrange(len(total)):
+                    if sum(total[:ii]) == self.cost:
+                        includes_total = True
+                if not includes_total:
                     break
 
         self.sequence = ([0] + [item] +
@@ -134,7 +138,8 @@ class Vend:
         next_state = self.state        
         self.total += coins[button]
         icost = cost[self.item]
-        
+
+        # button 0 simply indicates end of the sequence
         if elapse > 4000 or button == 0 or self.total > icost:
             self.code = ERROR_CODE
             next_state = 'error'

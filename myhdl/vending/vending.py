@@ -30,13 +30,13 @@ def m_vending(
     # define the states for this machine
     States = enum('WAIT', 'RELEASE', 'COINAGE', 'DISPENSE', 'ERROR', 'END')
 
-    # Signals 
     state = Signal(States.WAIT)
     user_reset = Signal(bool(0))
+    
     # the modbv needs to be a power of two, could simply
     # define the number of bits but then it loses some
-    # some real-world defintion 
-    tmax = int(ceil(log(MaxTick*2,2)))
+    # some real-world defintion/information
+    tmax = int(ceil(log(MaxTick*2, 2)))
     ticks = Signal(modbv(0, min=0, max=2**tmax))
     
     # the following two are used to debounce the button
@@ -47,8 +47,9 @@ def m_vending(
     # store the button to update the LEDs with the
     # item selected (bit version) store the int (1,2,3,4)
     # of item to select the correct coin
-    itemi = Signal(intbv(0, min=0, max=8))  # int version
-    itemb = intbv(0, min=0, max=button.max) # bit version
+    imax = 8 if len(costs) < 8 else len(costs)
+    itemi = Signal(intbv(0, min=0, max=imax)) # int version
+    itemb = intbv(0, min=0, max=button.max)   # bit version
     total = intbv(0, min=0, max=max(costs)+10)
     
     # use non-mutable container (ROM)
@@ -71,7 +72,7 @@ def m_vending(
         else:
             bitem.next = 0
 
-    # using look up tables for the coins and costs
+    # using look-up tables for the coins and costs
     # need to pull them out here ????
     ccoin = Signal(intbv(0, min=0, max=max(coins)+1))
     ccost = Signal(intbv(0, min=0, max=max(costs)+1))
@@ -80,7 +81,8 @@ def m_vending(
         ccoin.next = coins[bitem]
         if state == States.COINAGE:
             ccost.next = costs[itemi]
-        
+
+    # ~~~[STATE MACHINE]~~~
     @always_seq(clock.posedge, reset=reset)
     def rtl_sm():
         # running counter for timeouts etc
@@ -105,12 +107,12 @@ def m_vending(
                 state.next = States.COINAGE
                 
         elif state == States.COINAGE:
-            if bbounce > 0 and bbounce < 9:
+            if ticks >= MaxTick or total > ccost:
+                state.next = States.ERROR
+                led.next = C_ERROR_CODE
+            elif bbounce > 0 and bbounce < 9:
                 total[:] = total + ccoin #coins[bitem]
-                if ticks >= MaxTick:
-                    state.next = States.ERROR
-                    led.next = C_ERROR_CODE
-                elif total == ccost: #costs[itemi]:
+                if total == ccost: #costs[itemi]:
                     state.next = States.DISPENSE
                     ticks.next = 0
                     # reuse itemi to the number of blinks
