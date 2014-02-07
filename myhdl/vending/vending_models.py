@@ -158,6 +158,7 @@ class Vend:
             self.code = DISP_CODE
             
         if self.nblnk == 6:
+            self.code = 0
             next_state = 'end'
 
         return next_state
@@ -167,4 +168,5 @@ class Vend:
         return 'error'
 
     def _sm_end(self, button, elapse):
+        self.code = 0
         return 'wait'
