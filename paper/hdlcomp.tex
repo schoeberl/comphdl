@@ -1,5 +1,5 @@
-\documentclass[10pt, technote, draftcls, onecolumn]{IEEEtran}
-
+%\documentclass[10pt, technote, draftcls, onecolumn]{IEEEtran}
+\documentclass[a4paper, conference]{IEEEtran}
 %conference, compsocconf,
 
 %\usepackage{pslatex} % -- times instead of computer modern
@@ -65,6 +65,8 @@ broman@eecs.berkeley.edu
    \vspace{1ex}\\ 
 Addition comments by Christohper L. Felton\\
 cfelton@ieee.org
+\vspace{1 ex}
+Jamie\\
 }
 
 
@@ -144,7 +146,7 @@ In the software domain there has been a boom in new programming languages
 in the last years. Programmers are more flexible now to change programming
 languages when the job to been done is simplified. Within the hardware design
 community a new HDL has a hard time to get established. As there is a way
-smaller user base simulation and synthesize tools vendors are reluctant to
+smaller user base, simulation and synthesize tools vendors are reluctant to
 support a new HDL.
 
 However, in recent year there have ben new approaches to use modern
@@ -165,6 +167,12 @@ wants to minimize risk and dependency on a a singe vendor. Open source
 projects fulfill the role of risk minimization. In the worst case one can hire
 someone to fix a bug in the HDL. Therefore, we restrict our language survey
 to open-source projects.
+\martin{not really when we include BSV here as well.}
+
+To get a feel for a new language it is best to get exposed to several
+small and medium sized examples. Together with this paper we provide
+those examples in open source, hosted at GitHub:
+\url{https://github.com/schoeberl/comphdl}.
 
 \subsection{Assessment Criteria}
 
@@ -322,7 +330,7 @@ modeling before had etc.
 
 The following is an example of creating a reference model first before moving
 onto the implementation.
-http://www.programmableplanet.com/author.asp?section_id=2438&doc_id=254265
+\url{http://www.programmableplanet.com/author.asp?section_id=2438&doc_id=254265}
 }
 
 Positive is conversion to VHDL and Verilog.
