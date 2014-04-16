@@ -2,7 +2,7 @@ VENDING MACHINE EXAMPLE
 =======================
 This directory contains the MyHDL implementation of simple 
 vending machine described in 
-(problem_descriptions.md)[https://github.com/schoeberl/comphdl/blob/master/myhdl/vending/problem_statement.md].
+[problem_descriptions.md](https://github.com/schoeberl/comphdl/blob/master/myhdl/vending/problem_statement.md).
 The simple vending machine is an academic problem but is 
 defined such that it can be run on an FPGA development 
 board and the functionality verified.  The state-machine
