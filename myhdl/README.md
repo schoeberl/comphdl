@@ -1,11 +1,23 @@
-
 Introduction
 ============
 This directory contains the MyHDL implementation for 
 the examples in the comphdl effort.  Currently, this
-includes a *vending machine* example, *leros* processor,
-and *???*.
+includes a:
 
+1.  *vending machine* 
+2.  *leros* processor
+3.  *???*
+
+The directory is organized as:
+   
+    <example>/
+              myhdl/           # python source lives here
+              test_verilogs/   # test the generated verilogs
+              
+It is very important that the examles are working examples,
+some focus on verification.  The *test_verilogs* will be able
+to verify each of the generated Verilog from each language. 
+This is similar to the examples in [alt.hdl](https://github.com/cfelton/alt.hdl).
 
 Cheetsheet
 ==========
