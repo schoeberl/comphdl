@@ -19,8 +19,8 @@ some focus on verification.  The *test_verilogs* will be able
 to verify each of the generated Verilog from each language. 
 This is similar to the examples in [alt.hdl](https://github.com/cfelton/alt.hdl).
 
-Cheetsheet
-==========
+MyHDL Cheetsheet
+=================
 The following are some notes/hints for basic MyHDL 
 topics.
 
