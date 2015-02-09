@@ -4,7 +4,6 @@ package example
 
 import Chisel._
 import Node._
-import scala.collection.mutable.HashMap
 
 class Counter(size: Int) extends Module {
   val io = new Bundle {
@@ -16,19 +15,15 @@ class Counter(size: Int) extends Module {
 
 }
 
-class CounterTest(c: Counter) extends Tester(c, Array(c.io)) {
-  defTests {
-    val ret = true
-    val vars = new HashMap[Node, Node]()
+class CounterTest(c: Counter) extends Tester(c) {
+  val ret = true
 
-    for (i <- 0 until 5) {
-      step(vars, isTrace = false)
-      println(i)
-      println(c.io.out)
-    }
-
-    ret
+  for (i <- 0 until 5) {
+    step(1)
+    println(i)
+    println(peek(c.io.out))
   }
+
 }
 // The sbt build tool passes some arguments to our main,
 // which gives some arguments for the Chisel code generation

@@ -13,8 +13,6 @@ package example
 import Chisel._
 import Node._
 
-import scala.collection.mutable.HashMap
-
 class FsmContainer() extends Module {
   val io = new Bundle {
     val led = Bits(OUTPUT, 8)
@@ -75,20 +73,14 @@ class Tick() extends Module {
 
 }
 
-class FsmTest(fsm: FsmContainer) extends Tester(fsm, Array(fsm.io)) {
-  defTests {
-    val ret = true
-    val vars = new HashMap[Node, Node]()
-    val ovars = new HashMap[Node, Node]()
+class FsmTest(fsm: FsmContainer) extends Tester(fsm) {
+  val ret = true
 
-    for (i <- 0 until 10) {
-      vars.clear
-      step(vars, ovars)
-      println("iter: "+i)
-      println("ovars: "+ovars)
-      println("led/litVal "+ovars(c.io.led).litValue())
-    }
-    ret
+  for (i <- 0 until 10) {
+    step(1)
+    println("iter: "+i)
+//    println("led/litVal "+peek(c.io.led).litValue())
+    println("led/litVal "+peek(c.io.led))
   }
 }
 
